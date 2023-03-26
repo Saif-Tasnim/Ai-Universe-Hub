@@ -49,22 +49,21 @@ const processWithData = (data, limit) => {
        <span class="pl-3">${element.published_in}</span>
      </div>
      <div class="justify-end card-actions">
-       <button class="btn bg-white text-orange-500" onclick = "loadSingleData('${element.id}')"><i class="fa-solid fa-arrow-right"></i></button>
+       <label for="my-modal-3" class="btn bg-slate-100 text-orange-500 border-none" onclick = "loadSingleData('${element.id}')"><i class="fa-solid fa-arrow-right"></i></label>
      </div>
 
    </div>
 
- </div>
-   
-   `;
-        cardContainer.appendChild(div);
+ </div>  `;
+cardContainer.appendChild(div);
     });
 
 }
 
 
 const displaySingleData = data =>{
-console.log(data);
+
+
 }
 
 // initiate program
