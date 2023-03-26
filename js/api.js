@@ -20,6 +20,13 @@ const processWithData = (data, limit) => {
 
     if (limit) {
         data = data.slice(0, limit)
+        const cut = document.getElementById('see-more');
+        cut.classList.remove('hidden');
+    }
+
+    else{
+      const cut = document.getElementById('see-more');
+      cut.classList.add('hidden');
     }
 
     data.forEach(element => {
@@ -63,6 +70,13 @@ cardContainer.appendChild(div);
 // modal card dynamic data
 
 const displaySingleData = data =>{
+
+if(!data){
+  console.log("No data found");
+  return;
+
+}
+
 const modalContainer = document.getElementById('modal-card-container');
 console.log(modalContainer);
 modalContainer.textContent = "";
@@ -74,6 +88,27 @@ divLeft.classList.add('card-bordered');
 const divRight = document.createElement('div');
 divRight.classList.add('card');
 divRight.classList.add('card-bordered');
+
+// filter all data
+ 
+//1--> image check
+let imageData;
+if(data.image_link[0]){
+  imageData = data.image_link[0]
+}
+
+else if(data.image_link[1]){
+  imageData = data.image_link[1]
+}
+
+else if(data.image_link[2]){
+  imageData = data.image_link[2]
+}
+
+else{
+  imageData = data.image_link[3]
+}
+
 
 console.log(data);
 
@@ -136,7 +171,7 @@ modalContainer.appendChild(divLeft);
 
 divRight.innerHTML = `
 <figure class="w-4/5 mt-2 mx-auto">
-<img src="${data.image_link[1]}">
+<img src="${imageData}">
 <div class="badge badge-secondary absolute top-3 custom-right bg-red-700 text-white">${data.accuracy.score*100} % accuracy</div>
 </figure> 
 <div class="card-body">
@@ -150,6 +185,7 @@ divRight.innerHTML = `
 `;
 
 modalContainer.appendChild(divRight);
+
 
 }
 
