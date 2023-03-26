@@ -11,7 +11,7 @@ const loadSingleData = async (id) => {
     const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
     const res = await fetch(url);
     const data = await res.json();
-    console.log(data);
+    displaySingleData(data);
 }
 
 const processWithData = (data, limit) => {
@@ -60,6 +60,11 @@ const processWithData = (data, limit) => {
         cardContainer.appendChild(div);
     });
 
+}
+
+
+const displaySingleData = data =>{
+console.log(data);
 }
 
 // initiate program
