@@ -1,24 +1,34 @@
-const loadApi = async(limit) =>{
+const loadApi = async (limit) => {
     const url = "https://openapi.programming-hero.com/api/ai/tools";
     const res = await fetch(url);
     const data = await res.json();
-    processWithData(data.data.tools,limit);
+    processWithData(data.data.tools, limit);
 
 }
 
-const processWithData = (data,limit) =>{
-const cardContainer = document.getElementById('card-container');
-cardContainer.textContent = "";
-if(limit){
-    data = data.slice(0,limit)
+// load single data through click arrow button for explore more
+const loadSingleData = async (id) => {
+    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+    const res = await fetch(url);
+    const data = await res.json();
+    console.log(data);
 }
-data.forEach(element => {
-    console.log(element);
-   const div = document.createElement('div');
-   div.classList.add('card');
-   div.classList.add('card-bordered');
-   
-   div.innerHTML = `
+
+const processWithData = (data, limit) => {
+    const cardContainer = document.getElementById('card-container');
+    cardContainer.textContent = "";
+
+    if (limit) {
+        data = data.slice(0, limit)
+    }
+
+    data.forEach(element => {
+        console.log(element);
+        const div = document.createElement('div');
+        div.classList.add('card');
+        div.classList.add('card-bordered');
+
+        div.innerHTML = `
    <figure class="mt-6 rounded-2xl ml-4 mr-4">
    <img src="${element.image}">
  </figure>
@@ -39,7 +49,7 @@ data.forEach(element => {
        <span class="pl-3">${element.published_in}</span>
      </div>
      <div class="justify-end card-actions">
-       <button class="btn bg-white text-orange-500""><i class="fa-solid fa-arrow-right"></i></button>
+       <button class="btn bg-white text-orange-500" onclick = "loadSingleData('${element.id}')"><i class="fa-solid fa-arrow-right"></i></button>
      </div>
 
    </div>
@@ -47,14 +57,16 @@ data.forEach(element => {
  </div>
    
    `;
-cardContainer.appendChild(div);
-});
+        cardContainer.appendChild(div);
+    });
 
 }
 
 // initiate program
 loadApi(6);
 
+
 const loadFullData = () => {
-   loadApi();
+    loadApi();
 }
+
