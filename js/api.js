@@ -105,8 +105,12 @@ const displaySingleData = data => {
     imageData = data.image_link[2]
   }
 
-  else {
+  else if (data.image_link[3]) {
     imageData = data.image_link[3]
+  }
+
+  else {
+    imageData = null;
   }
 
 
@@ -126,19 +130,19 @@ const displaySingleData = data => {
 <div class="flex gap-6">
 
 <div class="small-vanilla-card rounded-lg mt-8">
-<p class="pl-6 pt-5"><span class=" text-lg text-green-600 font-bold">${data.pricing[0].price == 0 || data.pricing[0].price == 'No cost' ? 'Free Of Cost/' : data.pricing[0].price}</span>
+<p class="pl-6 pt-5"><span class=" text-lg text-green-600 font-bold">${data.pricing[0].price == 0 || data.pricing[0].price == 'No cost' || data.pricing[0].price == null ? 'Free Of Cost/' : data.pricing[0].price}</span>
 <span class="py-3 text-lg text-green-600 font-bold">${data.pricing[0].plan}</span> 
 </p>
 </div>
 
 <div class="small-vanilla-card rounded-lg mt-8">
-<p class="pl-6 pt-5"><span class=" text-lg text-orange-500 font-bold">${data.pricing[1].price == 0 || data.pricing[1].price == 'No cost' ? 'Free Of Cost/' : data.pricing[1].price}</span>
+<p class="pl-6 pt-5"><span class=" text-lg text-orange-500 font-bold">${data.pricing[1].price == 0 || data.pricing[1].price == 'No cost' || data.pricing[1].price == null ? 'Free Of Cost/' : data.pricing[1].price}</span>
 <span class="py-3 text-lg text-orange-500 font-bold">${data.pricing[1].plan}</span> 
 </p>
 </div>
 
 <div class="small-vanilla-card rounded-lg mt-8">
-<p class="pl-6 pt-5"><span class=" text-lg text-red-700 font-bold">${data.pricing[2].price == 0 || data.pricing[2].price == 'No cost' ? 'Free Of Cost/' : data.pricing[2].price}</span>
+<p class="pl-6 pt-5"><span class=" text-lg text-red-700 font-bold">${data.pricing[2].price == 0 || data.pricing[2].price == 'No cost' || data.pricing[2].price == null ? 'Free Of Cost/' : data.pricing[2].price}</span>
 <span class="py-3 text-lg text-red-700 font-bold">${data.pricing[2].plan}</span> 
 </p>
 </div>

@@ -28,39 +28,41 @@
     <div class="grid grid-cols-3 gap-8 mt-12 ml-12 mr-12" id="card-container">
 
       <!-- Card Design  -->
-    
-    
+
+
     </div>
 
   </section>
-<!-- add see more button  -->
+
+  <!-- add see more button  -->
   <section class="mt-12 mb-8" id="see-more">
-   <div class="flex justify-center">
-    <button class="btn bg-orange-500 custom-h-w text-white font-bold border-none" onclick="loadFullData()" >See More</button>
-   </div>
+    <div class="flex justify-center">
+      <button class="btn bg-orange-500 custom-h-w text-white font-bold border-none" onclick="loadFullData()">See
+        More</button>
+    </div>
   </section>
+
 
   <!-- Modal Part -->
 
+  <input type="checkbox" id="my-modal-3" class="modal-toggle" />
+  <div class="modal">
+    <div class="modal-box relative max-w-none w-3/4 h-4/5">
+      <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
 
-<input type="checkbox" id="my-modal-3" class="modal-toggle" />
-<div class="modal">
-  <div class="modal-box relative max-w-none w-3/4 h-4/5">
-    <label for="my-modal-3" class="btn btn-sm btn-circle absolute right-2 top-2">✕</label>
-    
-    <!-- card part start -->
-    <div class="grid grid-cols-2 gap-8 mt-12 ml-12 mr-12" id="modal-card-container">
-      <!-- card design start -->
+      <!-- card part start -->
+      <div class="grid grid-cols-2 gap-8 mt-12 ml-12 mr-12" id="modal-card-container">
+        <!-- card design start -->
 
-    <!-- card design end -->
+        <!-- card design end -->
 
-    
+
+      </div>
+
+      <!-- card container end -->
+    </div>
   </div>
 
-  <!-- card container end -->
-  </div>
-</div>
- 
   <!-- js link -->
   <script src="js/api.js"></script>
 </body>
