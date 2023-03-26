@@ -1,6 +1,9 @@
-.custom-h-w{
-    width: 180px;
-    height: 72px;
-    border-radius: 16px;
+.small-vanilla-card{
+    height: 110px;
+    width: 132px;
+    background-color: #fff;
+}
 
+.custom-right{
+    right: 60px;
 }
