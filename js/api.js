@@ -8,6 +8,7 @@ const loadApi = async(limit) =>{
 
 const processWithData = (data,limit) =>{
 const cardContainer = document.getElementById('card-container');
+cardContainer.textContent = "";
 if(limit){
     data = data.slice(0,limit)
 }
@@ -16,7 +17,7 @@ data.forEach(element => {
    const div = document.createElement('div');
    div.classList.add('card');
    div.classList.add('card-bordered');
-
+   
    div.innerHTML = `
    <figure class="mt-6 rounded-2xl ml-4 mr-4">
    <img src="${element.image}">
@@ -38,7 +39,7 @@ data.forEach(element => {
        <span class="pl-3">${element.published_in}</span>
      </div>
      <div class="justify-end card-actions">
-       <button class="btn bg-white text-orange-500"><i class="fa-solid fa-arrow-right"></i></button>
+       <button class="btn bg-white text-orange-500""><i class="fa-solid fa-arrow-right"></i></button>
      </div>
 
    </div>
@@ -53,3 +54,7 @@ cardContainer.appendChild(div);
 
 // initiate program
 loadApi(6);
+
+const loadFullData = () => {
+   loadApi();
+}
