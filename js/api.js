@@ -1,41 +1,41 @@
 const loadApi = async (limit) => {
-    const url = "https://openapi.programming-hero.com/api/ai/tools";
-    const res = await fetch(url);
-    const data = await res.json();
-    processWithData(data.data.tools, limit);
+  const url = "https://openapi.programming-hero.com/api/ai/tools";
+  const res = await fetch(url);
+  const data = await res.json();
+  processWithData(data.data.tools, limit);
 
 }
 
 // load single data through click arrow button for explore more
 const loadSingleData = async (id) => {
-    const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
-    const res = await fetch(url);
-    const data = await res.json();
-    displaySingleData(data.data);
+  const url = `https://openapi.programming-hero.com/api/ai/tool/${id}`;
+  const res = await fetch(url);
+  const data = await res.json();
+  displaySingleData(data.data);
 }
 
 const processWithData = (data, limit) => {
-    const cardContainer = document.getElementById('card-container');
-    cardContainer.textContent = "";
+  const cardContainer = document.getElementById('card-container');
+  cardContainer.textContent = "";
 
-    if (limit) {
-        data = data.slice(0, limit)
-        const cut = document.getElementById('see-more');
-        cut.classList.remove('hidden');
-    }
+  if (limit) {
+    data = data.slice(0, limit)
+    const cut = document.getElementById('see-more');
+    cut.classList.remove('hidden');
+  }
 
-    else{
-      const cut = document.getElementById('see-more');
-      cut.classList.add('hidden');
-    }
+  else {
+    const cut = document.getElementById('see-more');
+    cut.classList.add('hidden');
+  }
 
-    data.forEach(element => {
-        console.log(element);
-        const div = document.createElement('div');
-        div.classList.add('card');
-        div.classList.add('card-bordered');
+  data.forEach(element => {
+    console.log(element);
+    const div = document.createElement('div');
+    div.classList.add('card');
+    div.classList.add('card-bordered');
 
-        div.innerHTML = `
+    div.innerHTML = `
    <figure class="mt-6 rounded-2xl ml-4 mr-4">
    <img src="${element.image}">
  </figure>
@@ -62,57 +62,63 @@ const processWithData = (data, limit) => {
    </div>
 
  </div>  `;
-cardContainer.appendChild(div);
-    });
+    cardContainer.appendChild(div);
+  });
 
 }
 
 // modal card dynamic data
 
-const displaySingleData = data =>{
+const displaySingleData = data => {
 
-if(!data){
-  console.log("No data found");
-  return;
+  if (!data) {
+    console.log("No data found");
+    return;
 
-}
+  }
 
-const modalContainer = document.getElementById('modal-card-container');
-console.log(modalContainer);
-modalContainer.textContent = "";
+  const modalContainer = document.getElementById('modal-card-container');
+  console.log(modalContainer);
+  modalContainer.textContent = "";
 
-const divLeft = document.createElement('div');
-divLeft.classList.add('card');
-divLeft.classList.add('card-bordered');
+  const divLeft = document.createElement('div');
+  divLeft.classList.add('card');
+  divLeft.classList.add('card-bordered');
 
-const divRight = document.createElement('div');
-divRight.classList.add('card');
-divRight.classList.add('card-bordered');
+  const divRight = document.createElement('div');
+  divRight.classList.add('card');
+  divRight.classList.add('card-bordered');
 
-// filter all data
- 
-//1--> image check
-let imageData;
-if(data.image_link[0]){
-  imageData = data.image_link[0]
-}
+  // filter all data
 
-else if(data.image_link[1]){
-  imageData = data.image_link[1]
-}
+  //1--> image check
+  let imageData;
+  if (data.image_link[0]) {
+    imageData = data.image_link[0]
+  }
 
-else if(data.image_link[2]){
-  imageData = data.image_link[2]
-}
+  else if (data.image_link[1]) {
+    imageData = data.image_link[1]
+  }
 
-else{
-  imageData = data.image_link[3]
-}
+  else if (data.image_link[2]) {
+    imageData = data.image_link[2]
+  }
+
+  else {
+    imageData = data.image_link[3]
+  }
 
 
-console.log(data);
+  // 2. check accuracy
+  
 
-divLeft.innerHTML = `
+ let accuracy = (data.accuracy.score)*100;
+
+  
+  console.log(data);
+
+  divLeft.innerHTML = `
 
 <div class="card-body">
 
@@ -167,16 +173,16 @@ divLeft.innerHTML = `
 
 `;
 
-modalContainer.appendChild(divLeft);
+  modalContainer.appendChild(divLeft);
 
 divRight.innerHTML = `
 <figure class="w-4/5 mt-2 mx-auto">
 <img src="${imageData}">
-<div class="badge badge-secondary absolute top-3 custom-right bg-red-700 text-white">${data.accuracy.score*100} % accuracy</div>
+<div class="badge badge-secondary absolute top-3 custom-right bg-red-700 text-white" id="badge-dec"> </div>
 </figure> 
 <div class="card-body">
 <h2 class="card-title font-bold mt-4">${data.input_output_examples[0].input
-}
+    }
 </h2> 
 <p class="mt-4 text-lg">${data.input_output_examples[0].output}</p> 
 
@@ -186,6 +192,16 @@ divRight.innerHTML = `
 
 modalContainer.appendChild(divRight);
 
+const badge = document.getElementById('badge-dec');
+if(accuracy>0){
+  badge.innerText = `${accuracy} % accuracy`;
+  badge.classList.remove('hidden');
+}
+
+else{
+  badge.classList.add('hidden');
+}
+
 
 }
 
@@ -194,6 +210,6 @@ loadApi(6);
 
 
 const loadFullData = () => {
-    loadApi();
+  loadApi();
 }
 
