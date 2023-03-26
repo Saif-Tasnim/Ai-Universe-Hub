@@ -33,9 +33,9 @@ data.forEach(element => {
    
    <div class="mt-6 flex justify-between items-center">
        <div class="">
-       <h2 class="text-3xl font-bold mb-6">ChatGPT</h2>
+       <h2 class="text-3xl font-bold mb-6">${element.name}</h2>
        <i class="fa-regular fa-calendar-minus"></i>
-       <span>11/01/2022</span>
+       <span class="pl-3">${element.published_in}</span>
      </div>
      <div class="justify-end card-actions">
        <button class="btn bg-white text-orange-500"><i class="fa-solid fa-arrow-right"></i></button>
