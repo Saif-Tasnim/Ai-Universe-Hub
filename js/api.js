@@ -110,12 +110,9 @@ const displaySingleData = data => {
   }
 
 
-  // 2. check accuracy
-  
+  let accuracy = (data.accuracy.score) * 100;
 
- let accuracy = (data.accuracy.score)*100;
 
-  
   console.log(data);
 
   divLeft.innerHTML = `
@@ -129,19 +126,19 @@ const displaySingleData = data => {
 <div class="flex gap-6">
 
 <div class="small-vanilla-card rounded-lg mt-8">
-<p class="pl-6 pt-5"><span class=" text-lg text-green-600 font-bold">${data.pricing[0].price}</span>
+<p class="pl-6 pt-5"><span class=" text-lg text-green-600 font-bold">${data.pricing[0].price == 0 || data.pricing[0].price == 'No cost' ? 'Free Of Cost/' : data.pricing[0].price}</span>
 <span class="py-3 text-lg text-green-600 font-bold">${data.pricing[0].plan}</span> 
 </p>
 </div>
 
 <div class="small-vanilla-card rounded-lg mt-8">
-<p class="pl-6 pt-5"><span class=" text-lg text-orange-500 font-bold">${data.pricing[1].price}</span>
+<p class="pl-6 pt-5"><span class=" text-lg text-orange-500 font-bold">${data.pricing[1].price == 0 || data.pricing[1].price == 'No cost' ? 'Free Of Cost/' : data.pricing[1].price}</span>
 <span class="py-3 text-lg text-orange-500 font-bold">${data.pricing[1].plan}</span> 
 </p>
 </div>
 
 <div class="small-vanilla-card rounded-lg mt-8">
-<p class="pl-6 pt-4"><span class=" text-lg text-red-700 font-bold">${data.pricing[2].price}</span>
+<p class="pl-6 pt-5"><span class=" text-lg text-red-700 font-bold">${data.pricing[2].price == 0 || data.pricing[2].price == 'No cost' ? 'Free Of Cost/' : data.pricing[2].price}</span>
 <span class="py-3 text-lg text-red-700 font-bold">${data.pricing[2].plan}</span> 
 </p>
 </div>
@@ -160,10 +157,8 @@ const displaySingleData = data => {
 
 <div>
 <h2 class="font-bold text-xl"> Integration </h2>
-<ul class="list-disc list-inside">
-<li class="mt-2"> ${data.integrations[0]}  </li>
-<li class="mt-2"> ${data.integrations[1]}  </li>
-<li class="mt-2"> ${data.integrations[2]}  </li>
+<ul class="list-disc list-inside" id="ul-ok">
+
 </ul>
 </div>
 
@@ -175,7 +170,7 @@ const displaySingleData = data => {
 
   modalContainer.appendChild(divLeft);
 
-divRight.innerHTML = `
+  divRight.innerHTML = `
 <figure class="w-4/5 mt-2 mx-auto">
 <img src="${imageData}">
 <div class="badge badge-secondary absolute top-3 custom-right bg-red-700 text-white" id="badge-dec"> </div>
@@ -190,20 +185,42 @@ divRight.innerHTML = `
 
 `;
 
-modalContainer.appendChild(divRight);
+  modalContainer.appendChild(divRight);
 
-const badge = document.getElementById('badge-dec');
-if(accuracy>0){
-  badge.innerText = `${accuracy} % accuracy`;
-  badge.classList.remove('hidden');
+  // 2. check accuracy
+
+  const badge = document.getElementById('badge-dec');
+  if (accuracy > 0) {
+    badge.innerText = `${accuracy} % accuracy`;
+    badge.classList.remove('hidden');
+  }
+
+  else {
+    badge.classList.add('hidden');
+  }
+
+  // 3. check integration
+
+  const ul = document.getElementById('ul-ok');
+
+  if (data.integrations.length) {
+    data.integrations.forEach(element => {
+      const li = document.createElement('li');
+      li.classList.add('mt-2');
+      li.innerText = element;
+      ul.appendChild(li);
+
+    });
+  }
+  else {
+    const li = document.createElement('li');
+    li.classList.add('mt-2');
+    li.innerText = "No Data Found";
+    ul.appendChild(li);
+  }
+
 }
 
-else{
-  badge.classList.add('hidden');
-}
-
-
-}
 
 // initiate program
 loadApi(6);
